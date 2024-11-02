@@ -1,0 +1,8 @@
+numpy
+pandas
+seaborn
+matplotlib.pyplot
+schickit-learn == 1.5.2
+imbalanced-learn == 0.12.4
+lightgbm == 4.5.0
+xgboost == 2.1.2
