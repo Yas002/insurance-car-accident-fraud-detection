@@ -8,3 +8,4 @@ lightgbm == 4.5.0
 xgboost == 2.1.2
 catboost == 1.2.7
 optuna == 4.0.0
+dvc == 3.56.0

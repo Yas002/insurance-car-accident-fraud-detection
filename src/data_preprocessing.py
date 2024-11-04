@@ -257,7 +257,7 @@ def main():
     
     # Load data
     print("Loading data from fraud_oracle.csv...")
-    df = pd.read_csv("fraud_oracle.csv")
+    df = pd.read_csv("data/fraud_oracle.csv")
     
     # Preprocessing
     print("Applying preprocessing pipeline...")
@@ -276,10 +276,10 @@ def main():
     
     # Save datasets
     print("\nSaving datasets to files...")
-    df_train_1.to_csv("df_train_1.csv", index=False)
-    df_test_1.to_csv("df_test_1.csv", index=False)
-    df_train_2.to_csv("df_train_2.csv", index=False)
-    df_test_2.to_csv("df_test_2.csv", index=False)
+    df_train_1.to_csv("data/df_train_1.csv", index=False)
+    df_test_1.to_csv("data/df_test_1.csv", index=False)
+    df_train_2.to_csv("data/df_train_2.csv", index=False)
+    df_test_2.to_csv("data/df_test_2.csv", index=False)
     print("✓ All datasets saved successfully!")
     
     print("\n=== Preprocessing pipeline completed successfully! ===")
