@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/4fdaf700e5044dd2996f7f973ee304ec/artifacts
+end_time: 1731322882900
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4fdaf700e5044dd2996f7f973ee304ec
+run_name: incongruous-cub-370
+run_uuid: 4fdaf700e5044dd2996f7f973ee304ec
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731322852157
+status: 3
+tags: []
+user_id: Yassine

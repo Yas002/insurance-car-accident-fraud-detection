@@ -1,0 +1,4 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = https://dagshub.com/yassine_msaddak/insurance-car-accident-fraud-detection.dvc

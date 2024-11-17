@@ -1,0 +1,43 @@
+artifact_path: insurance_fraud_model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.2
+mlflow_version: 2.17.2
+model_size_bytes: 4039091
+model_uuid: 127e1efcd88445c3b73e30fe014d11bb
+run_id: 4fdaf700e5044dd2996f7f973ee304ec
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "long", "name": "Month", "required": true}, {"type": "long",
+    "name": "Sex", "required": true}, {"type": "long", "name": "MaritalStatus", "required":
+    true}, {"type": "long", "name": "Age", "required": true}, {"type": "long", "name":
+    "Fault", "required": true}, {"type": "long", "name": "VehicleCategory", "required":
+    true}, {"type": "long", "name": "VehiclePrice", "required": true}, {"type": "long",
+    "name": "RepNumber", "required": true}, {"type": "long", "name": "Deductible",
+    "required": true}, {"type": "long", "name": "DriverRating", "required": true},
+    {"type": "long", "name": "PastNumberOfClaims", "required": true}, {"type": "long",
+    "name": "AgeOfVehicle", "required": true}, {"type": "long", "name": "NumberOfSuppliments",
+    "required": true}, {"type": "long", "name": "AddressChange_Claim", "required":
+    true}, {"type": "long", "name": "NumberOfCars", "required": true}, {"type": "long",
+    "name": "Year", "required": true}, {"type": "long", "name": "BasePolicy", "required":
+    true}, {"type": "long", "name": "Make_Honda", "required": true}, {"type": "long",
+    "name": "Make_Mazda", "required": true}, {"type": "long", "name": "Make_Pontiac",
+    "required": true}, {"type": "long", "name": "Make_Toyota", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-11-11 11:00:52.558232'
