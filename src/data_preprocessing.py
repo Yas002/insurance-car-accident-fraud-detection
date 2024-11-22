@@ -246,8 +246,8 @@ def create_preprocessing_pipeline(df):
     df_test = pd.concat([X_test, y_test], axis=1)
 
     # oversampling the train data using SMOTE method
-    #df_train = smote_oversampling(X_train, y_train)
-    df_train = pd.concat([X_train, y_train], axis=1)
+    df_train = smote_oversampling(X_train, y_train)
+    #df_train = pd.concat([X_train, y_train], axis=1)
 
     return df_train, df_test
 
@@ -277,10 +277,10 @@ def main():
     
     # Save datasets
     print("\nSaving datasets to files...")
-    df_train_1.to_csv("data/df_train_1_unbalanced.csv", index=False)
-    df_test_1.to_csv("data/df_test_1_unbalanced.csv", index=False)
-    df_train_2.to_csv("data/df_train_2_unbalanced.csv", index=False)
-    df_test_2.to_csv("data/df_test_2_unbalanced.csv", index=False)
+    df_train_1.to_csv("data/df_train_1.csv", index=False)
+    df_test_1.to_csv("data/df_test_1.csv", index=False)
+    df_train_2.to_csv("data/df_train_2.csv", index=False)
+    df_test_2.to_csv("data/df_test_2.csv", index=False)
     print("✓ All datasets saved successfully!")
     
     print("\n=== Preprocessing pipeline completed successfully! ===")

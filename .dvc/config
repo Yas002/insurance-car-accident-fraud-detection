@@ -1,4 +1,7 @@
 [core]
-    remote = origin
+    remote = myremote
 ['remote "origin"']
     url = https://dagshub.com/yassine_msaddak/insurance-car-accident-fraud-detection.dvc
+['remote "myremote"']
+    url = gdrive://1Ty4mBK0BbUbDmYNkpfazimms1yHyw7fd/dvcstore
+    gdrive_acknowledge_abuse = true
