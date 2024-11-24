@@ -1,3 +1,6 @@
+# this file creates a pipeline for preprocessing the data and saving the preprocessed datasets to files as train and test for both folds (the firstfold to train the models on
+# and the second fold to retrain the model considering the new data)
+
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -43,30 +46,10 @@ def map_categorical_columns(df):
     basepolicy_mapping = {'Liability': 0, 'Collision': 1, 'All Perils': 2}
     materialstatus_mapping = {'Single': 0, 'Married': 1, 'Widow': 2, 'Divorced': 3}
 
-    policy_type_mapping = {
-        'Sport - Liability': 0,
-        'Sport - Collision': 1,
-        'Sport - All Perils': 2,
-        'Sedan - Liability': 3,
-        'Sedan - Collision': 4,
-        'Sedan - All Perils': 5,
-        'Utility - Liability': 6,
-        'Utility - Collision': 7,
-        'Utility - All Perils': 8
-    }
-
     vehicle_category_mapping = {
         'Sport': 0,
         'Sedan': 1,
         'Utility': 2
-    }
-
-    days_policy_accident_mapping = {
-        'none': 0,
-        '1 to 7': 1,
-        '8 to 15': 2,
-        '15 to 30': 3,
-        'more than 30': 4
     }
 
     days_policy_claim_mapping = {
@@ -112,7 +95,6 @@ def map_categorical_columns(df):
     df['AgeOfVehicle'] = df['AgeOfVehicle'].map(ageofvehicle_mapping)
     df['BasePolicy'] = df['BasePolicy'].map(basepolicy_mapping)
     df['MaritalStatus'] = df['MaritalStatus'].map(materialstatus_mapping)
-    df['Days_Policy_Accident'] = df['Days_Policy_Accident'].map(days_policy_accident_mapping)
     df['Days_Policy_Claim'] = df['Days_Policy_Claim'].map(days_policy_claim_mapping)
     df['PastNumberOfClaims'] = df['PastNumberOfClaims'].map(past_number_of_claims_mapping)
     df['NumberOfSuppliments'] = df['NumberOfSuppliments'].map(number_of_suppliments_mapping)
@@ -125,7 +107,7 @@ def map_categorical_columns(df):
 
 
 
-def one_hot_encoding_function(df, feature):
+def one_hot_encoding_function(df):
     df["Make"] = df["Make"].astype(str)
     df = pd.get_dummies(df, columns=["Make"])
     return df
@@ -223,7 +205,7 @@ def create_preprocessing_pipeline(df):
     df = encode_binary_columns(df, binary_features)
 
     # maping those categorical features  ['Month', 'VehiclePrice', 'AgeOfVehicle', 'BasePolicy', 'MaritalStatus',
-    # 'Days_Policy_Accident', 'Days_Policy_Claim', 'PastNumberOfClaims', 'NumberOfSuppliments', 'AddressChange_Claim',
+    # 'Days_Policy_Claim', 'PastNumberOfClaims', 'NumberOfSuppliments', 'AddressChange_Claim',
     # 'NumberOfCars', 'PolicyType', 'VehicleCategory'] and change it into numerical
     df = map_categorical_columns(df)
 

@@ -15,3 +15,4 @@ dagshub == 0.3.42
 fastapi == 0.115.5
 uvicorn == 0.32.1
 pydantic == 2.9.2
+multipart == 0.0.17
