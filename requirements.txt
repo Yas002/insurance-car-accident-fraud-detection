@@ -1,7 +1,7 @@
-numpy
-pandas
-seaborn
-matplotlib
+numpy == 1.26.4
+pandas == 2.2.3
+seaborn == 0.13.2
+matplotlib == 3.9.2
 schickit-learn == 1.5.2
 imbalanced-learn == 0.12.4
 lightgbm == 4.5.0
@@ -15,5 +15,6 @@ dagshub == 0.3.42
 fastapi == 0.115.5
 uvicorn == 0.32.1
 pydantic == 2.9.2
+requests == 2.32.3
 multipart == 0.0.17
 streamlit == 1.40.1

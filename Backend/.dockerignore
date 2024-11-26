@@ -1,0 +1,13 @@
+# Exclude Python cache files
+__pycache__/
+*.pyc
+
+# Exclude environment files
+.env
+
+# Exclude version control
+.git/
+.gitignore
+
+# Exclude Docker files if not needed inside the image
+Dockerfile

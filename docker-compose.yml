@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_USERNAME=yassine_msaddak
+      - MLFLOW_TRACKING_PASSWORD=cebe03412443d572cb1737c2b6a7cf7059a92190
+    volumes:
+      - ./backend:/backend
