@@ -3,7 +3,7 @@
 """
 the input dataframe to this pipeline should have this schema:
     Month : object
-    Make : object 
+    Make : object
     Sex : object
     MaritalStatus : object
     Age : int64
