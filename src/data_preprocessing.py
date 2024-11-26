@@ -1,6 +1,7 @@
 # this file creates a pipeline for preprocessing the data and saving the preprocessed datasets to files as train and test for both folds (the firstfold to train the models on
 # and the second fold to retrain the model considering the new data)
 
+import os
 import numpy as np 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -194,7 +195,6 @@ def stratified_split_2_folds(df, target_column = "FraudFound_P"):
 
 
 
-
 def create_preprocessing_pipeline(df):
     # start by dropping the unecessary columns (decision taken from the EDA)
     columns_to_drop = ['MonthClaimed', 'WeekOfMonth', 'DayOfWeek', 'DayOfWeekClaimed', 'WeekOfMonthClaimed', 'PolicyNumber', 'AgeOfPolicyHolder', 'PolicyType']
@@ -240,7 +240,8 @@ def main():
     
     # Load data
     print("Loading data from fraud_oracle.csv...")
-    df = pd.read_csv("data/fraud_oracle.csv")
+    data_path = os.path.join(os.path.dirname("data_preprocessing.py"), '..', 'data', 'fraud_oracle.csv')
+    df = pd.read_csv(data_path)
     
     # Preprocessing
     print("Applying preprocessing pipeline...")
