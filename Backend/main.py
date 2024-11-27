@@ -1,4 +1,5 @@
 # type  uvicorn main:app --reload  in cmd to run the app
+# to build the docker image type: cd to Backend directory, then type: docker build -t car-fraud-backend .
 
 from clean_data import create_preprocessing_pipeline
 from fastapi import FastAPI, File, UploadFile, HTTPException
@@ -8,6 +9,7 @@ from mlflow.tracking import MlflowClient
 import pandas as pd
 from dotenv import load_dotenv
 import os
+import urllib.parse
 
 
 
@@ -15,19 +17,20 @@ import os
 
 
 # Load environment variables from the .env file
-load_dotenv("../.env")
+load_dotenv(".env")
 
 # Set the DagsHub username and token from environment variables
 dagshub_username = os.getenv('MLFLOW_TRACKING_USERNAME')
 dagshub_token = os.getenv('MLFLOW_TRACKING_PASSWORD')
 
-# Print or assert to confirm the values are loaded
+
 if dagshub_username and dagshub_token:
     print("Environment variables loaded successfully:")
-    print("DagsHub Username:", dagshub_username)
-    print("DagsHub Token:", "Loaded" if dagshub_token else "Not Loaded")
+    print(f"DagsHub Username: {dagshub_username}")
+    print(f"DagsHub Token: {dagshub_token}")
 else:
     print("Failed to load environment variables.")
+
 
 # Set the MLflow tracking URI to your existing DagsHub repository
 mlflow.set_tracking_uri(f"https://dagshub.com/yassine_msaddak/insurance-car-accident-fraud-detection.mlflow")
@@ -38,7 +41,6 @@ os.environ['MLFLOW_TRACKING_PASSWORD'] = dagshub_token
 
 # Now you can log your model and experiments directly with MLflow
 print(f"Using MLflow to track experiments on DagsHub repo: {dagshub_username}/insurance-car-accident-fraud-detection")
-
 
 
 # Function to load the best model based on a specified metric
@@ -62,13 +64,13 @@ def load_best_model(experiment_name, metric_name):
     )
 
     if not best_runs:
-        raise ValueError(f"No runs found for experiment '{experiment_name}'.")
+        raise ValueError(f"No runs found for experiment '{experiment_name}' with metric '{metric_name}'.")
 
     best_run = best_runs[0]
     best_run_id = best_run.info.run_id
     print(f"Best run ID: {best_run_id}, {metric_name}: {best_run.data.metrics[metric_name]}")
 
-    # List artifacts for the best run to find the model artifact path
+ # List artifacts for the best run to find the model artifact path
     artifacts = client.list_artifacts(best_run_id)
     model_artifact_path = None
 
@@ -104,7 +106,8 @@ def load_best_model(experiment_name, metric_name):
 
     return logged_model
 
-# Use the function to get the logged_model path
+
+# Example usage
 logged_model = load_best_model('insurance-fraud-detection-experiment', 'test_F1 Score')
 
 # Load the model using the logged_model path
