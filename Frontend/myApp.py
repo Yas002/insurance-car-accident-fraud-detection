@@ -120,10 +120,10 @@ else:
             # Send data to FastAPI for prediction
             try:
                 # Replace with your FastAPI endpoint URL
-                api_url = "http://127.0.0.1:8000/predict"
+                backend_url = "http://backend:8000/predict"
 
                 files = {'file': ('uploaded_file.csv', uploaded_file.getvalue(), 'text/csv')}
-                response = requests.post(api_url, files=files)
+                response = requests.post(backend_url, files=files)
                 if response.status_code == 200:
                     predictions = response.json()['predictions']
                     # Map numerical predictions to labels
