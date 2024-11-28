@@ -108,7 +108,7 @@ def load_best_model(experiment_name, metric_name):
 
 
 # Example usage
-logged_model = load_best_model('insurance-fraud-detection-experiment', 'test_F1 Score')
+logged_model = load_best_model('insurance-fraud-detection-experiment', 'test_F1_Score')
 
 # Load the model using the logged_model path
 model = mlflow.pyfunc.load_model(logged_model)
