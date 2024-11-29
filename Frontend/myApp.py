@@ -33,26 +33,26 @@ if option == 'Manual Input':
             Month = st.selectbox('Month', [str(i) for i in range(1, 13)])
             Make = st.selectbox('Make', ['Honda', 'Ford', 'Toyota', 'Mazda', 'Chevrolet', 'Pontiac'])
             Sex = st.selectbox('Sex', ['Male', 'Female'])
-            MaritalStatus = st.selectbox('Marital Status', ['Single', 'Married', 'Divorced'])
+            MaritalStatus = st.selectbox('Marital Status', ['Single', 'Married', 'Divorced', 'Widow'])
             Age = st.number_input('Age', min_value=16, max_value=100, value=30)
             Fault = st.selectbox('Fault', ['Policy Holder', 'Third Party'])
-            VehicleCategory = st.selectbox('Vehicle Category', ['Sedan', 'Sports Car', 'SUV'])
+            VehicleCategory = st.selectbox('Vehicle Category', ['Sedan', 'Sport', 'Utility'])
         
         with col2:
-            VehiclePrice = st.selectbox('Vehicle Price', ['Less than 20,000', '20,000 to 40,000', 'More than 40,000'])
-            RepNumber = st.number_input('Rep Number', min_value=0, max_value=20, value=1)
-            Deductible = st.number_input('Deductible', min_value=0, max_value=1000, value=500)
-            DriverRating = st.number_input('Driver Rating', min_value=0, max_value=5, value=3)
-            PastNumberOfClaims = st.selectbox('Past Number of Claims', ['None', '1', '2 to 4', 'More than 4'])
-            AgeOfVehicle = st.selectbox('Age of Vehicle', ['New', '2 Years', '3 Years', '4 Years', '5 Years', 'More than 5 Years'])
+            VehiclePrice = st.selectbox('Vehicle Price', ['less than 20000', '20000 to 29000', '30000 to 39000', '40000 to 59000', '60000 to 69000', 'more than 69000'])
+            RepNumber = st.number_input('Rep Number', min_value=1, max_value=16, value=1)
+            Deductible = st.selectbox('Deductible', [300, 400, 500, 700])
+            DriverRating = st.number_input('Driver Rating', min_value=1, max_value=4, value=1)
+            PastNumberOfClaims = st.selectbox('Past Number of Claims', ['none', '1', '2 to 4', 'more than 4'])
+            AgeOfVehicle = st.selectbox('Age of Vehicle', ['new', '2 years', '3 years', '4 years', '5 years', '6 years', '7 years', 'more than 7'])
             WitnessPresent = st.selectbox('Witness Present', ['Yes', 'No'])
         
         with col3:
             AgentType = st.selectbox('Agent Type', ['External', 'Internal'])
-            NumberOfSuppliments = st.selectbox('Number of Supplements', ['None', '1 to 2', '3 to 5', 'More than 5'])
-            AddressChange_Claim = st.selectbox('Address Change since Policy Inception', ['Under 6 Months', '1 Year', '2 to 3 Years', 'Over 4 Years'])
+            NumberOfSuppliments = st.selectbox('Number of Supplements', ['none', '1 to 2', '3 to 5', 'More than 5'])
+            AddressChange_Claim = st.selectbox('Address Change since Policy Inception', ['no change', 'Under 6 Months', '1 Year', '2 to 3 Years', '4 to 8 Years'])
             NumberOfCars = st.selectbox('Number of Cars', ['1 Vehicle', '2 Vehicles', '3 to 4', '5 to 8', 'More than 8'])
-            Year = st.number_input('Year', min_value=1990, max_value=2023, value=2023)
+            Year = st.number_input('Year', min_value=1994, max_value=1996, value=1995)
             BasePolicy = st.selectbox('Base Policy', ['Liability', 'Collision', 'All Perils'])
         
         # Submit button
@@ -93,7 +93,7 @@ if option == 'Manual Input':
         # Send data to FastAPI for prediction
         try:
             # Replace with your FastAPI endpoint URL
-            api_url = "http://127.0.0.1:8000/predict"
+            api_url = "http://backend:8000/predict"
 
             files = {'file': ('input_data.csv', csv_buffer.getvalue(), 'text/csv')}
             response = requests.post(api_url, files=files)
