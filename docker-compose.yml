@@ -1,4 +1,5 @@
-# to run both the frontend and backend services together: docker-compose up --build
+# to run both the frontend and backend services together after making changes: docker-compose up --build
+# to run both frontend and backend services with the current version: docker-compose up
 # to stop the services: docker-compose down
 
 
