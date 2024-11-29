@@ -41,17 +41,15 @@ jobs:
             --registry-username ${{ secrets.ACR_USERNAME }} \
             --registry-password ${{ secrets.ACR_PASSWORD }} \
             --ports 8000 8501 \
-            --containers '[
-              {
-                "name": "backend",
-                "image": "${{ secrets.ACR_NAME }}.azurecr.io/backend:latest",
-                "ports": [{"port": 8000}],
-                "resources": {"requests": {"cpu": 1, "memoryInGb": 1.5}}
-              },
-              {
-                "name": "frontend",
-                "image": "${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest",
-                "ports": [{"port": 8501}],
-                "resources": {"requests": {"cpu": 1, "memoryInGb": 1.5}}
-              }
-            ]'
+            --containers "[{
+              \"name\": \"backend\",
+              \"image\": \"${{ secrets.ACR_NAME }}.azurecr.io/backend:latest\",
+              \"ports\": [{\"port\": 8000}],
+              \"resources\": {\"requests\": {\"cpu\": 1, \"memoryInGb\": 1.5}}
+            },
+            {
+              \"name\": \"frontend\",
+              \"image\": \"${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest\",
+              \"ports\": [{\"port\": 8501}],
+              \"resources\": {\"requests\": {\"cpu\": 1, \"memoryInGb\": 1.5}}
+            }]"
