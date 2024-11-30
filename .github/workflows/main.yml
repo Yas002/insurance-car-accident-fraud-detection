@@ -12,8 +12,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
       - name: Log in to Azure
-        run: az login -u ${{ secrets.AZURE_USERNAME }} -p ${{ secrets.AZURE_PASSWORD }}
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Log in to Azure Container Registry
         run: az acr login --name ${{ secrets.ACR_NAME }}
@@ -28,17 +34,75 @@ jobs:
           docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest ./Frontend
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest
 
-      - name: Deploy to Azure Container Instances
+      - name: Create container-group.json
         run: |
-          az container create \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --name ${{ secrets.ACI_NAME }} \
-            --os-type Linux \
-            --ip-address public \
-            --dns-name-label myappunique2023 \
-            --restart-policy OnFailure \
-            --registry-login-server ${{ secrets.ACR_NAME }}.azurecr.io \
-            --registry-username ${{ secrets.ACR_USERNAME }} \
-            --registry-password ${{ secrets.ACR_PASSWORD }} \
-            --ports 8000 8501 \
-            --containers '[{"name": "backend","image": "'${{ secrets.ACR_NAME }}'.azurecr.io/backend:latest","ports":[{"port":8000}],"resources":{"requests":{"cpu":1,"memoryInGb":1.5}}},{"name": "frontend","image": "'${{ secrets.ACR_NAME }}'.azurecr.io/frontend:latest","ports":[{"port":8501}],"resources":{"requests":{"cpu":1,"memoryInGb":1.5}}}]'
+          cat <<EOF > container-group.json
+          {
+            "name": "${{ secrets.ACI_NAME }}",
+            "location": "eastus",
+            "properties": {
+              "containers": [
+                {
+                  "name": "backend",
+                  "properties": {
+                    "image": "${{ secrets.ACR_NAME }}.azurecr.io/backend:latest",
+                    "resources": {
+                      "requests": {
+                        "cpu": 1,
+                        "memoryInGb": 1.5
+                      }
+                    },
+                    "ports": [
+                      {
+                        "port": 8000
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "frontend",
+                  "properties": {
+                    "image": "${{ secrets.ACR_NAME }}.azurecr.io/frontend:latest",
+                    "resources": {
+                      "requests": {
+                        "cpu": 1,
+                        "memoryInGb": 1.5
+                      }
+                    },
+                    "ports": [
+                      {
+                        "port": 8501
+                      }
+                    ]
+                  }
+                }
+              ],
+              "osType": "Linux",
+              "ipAddress": {
+                "type": "Public",
+                "dnsNameLabel": "myappunique2023-${{ github.run_id }}",
+                "ports": [
+                  {
+                    "protocol": "TCP",
+                    "port": 8000
+                  },
+                  {
+                    "protocol": "TCP",
+                    "port": 8501
+                  }
+                ]
+              },
+              "restartPolicy": "OnFailure",
+              "imageRegistryCredentials": [
+                {
+                  "server": "${{ secrets.ACR_NAME }}.azurecr.io",
+                  "username": "${{ secrets.ACR_USERNAME }}",
+                  "password": "${{ secrets.ACR_PASSWORD }}"
+                }
+              ]
+            }
+          }
+          EOF
+
+      - name: Deploy to Azure Container Instances
+        run: az container create --resource-group ${{ secrets.RESOURCE_GROUP }} --file container-group.json
