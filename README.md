@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # MLOps Project: Fraud Detection in Car Accidents Based on Insurance Features
 
 This project, in collaboration with my colleague Med Aziz Ben Lazreg, aims to detect fraudulent car accidents using insurance-related information. The dataset utilized in this project is sourced from Kaggle (see the Resources section below).
@@ -31,9 +30,5 @@ During the EDA, we found that our target variable was imbalanced. To address thi
 
 ## Resources
 
-- **Dataset:** [Insurance Dataset on Kaggle](https://www.kaggle.com/datasets/joudalnsour/insurance/data)
-=======
-# MLOps project: Fraud detection in car accidents based on insurance-related features
-## Ressources:
-- Dataset: https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection/data
->>>>>>> bd934632956c2eb4803fdc3e43b85751a8d5296e
+- **Dataset:** [Insurance Dataset on Kaggle](https://www.kaggle.com/datasets/shivamb/vehicle-claim-fraud-detection/data)
+
