@@ -17,16 +17,37 @@ We began with an exploratory data analysis (`fraud_detection_EDA.ipynb`) to extr
 
 Data preprocessing was performed using pipelines, as implemented in `src/data_preprocessing.py`.
 
-### 3. Modeling
+### 3. Modeling, Tracking, and Versioning
 
-In the modeling phase (`modeling.ipynb`), we tested several models, including:
+In the [`modeling.ipynb`](./modeling.ipynb) notebook, we experimented with a range of machine learning models, including:
 
-- Random Forest
-- Logistic Regression
-- K-Nearest Neighbors (KNN)
-- Support Vector Machine (SVM)
+- Random Forest  
+- Logistic Regression  
+- K-Nearest Neighbors (KNN)  
+- Support Vector Machine (SVM)  
 
-During the EDA, we found that our target variable was imbalanced. To address this, we employed boosting models such as XGBoost and LightGBM, testing them on both balanced data (using SMOTE) and imbalanced data, due to their strong performance on imbalanced datasets.
+Recognizing the imbalanced nature of our target, we incorporated boosting algorithms such as XGBoost and LightGBM. These were trained on both SMOTE-balanced and imbalanced data, leveraging their strong performance on skewed datasets. Model performance metrics and artifacts were tracked using MLflow, which was synced with our Dagshub repository. Additionally, data versioning was managed through DVC to maintain control over dataset iterations.
+
+### 4. Front End and Back End
+
+The back end is powered by FastAPI for its lightweight nature and efficient Docker compatibility. The front end, developed in Streamlit, provides a straightforward interface to interact with and test the deployed model. Both components are containerized using Dockerfiles and dedicated requirements files to streamline the build and deployment processes.
+
+### 5. Deployment
+
+Deployment to Microsoft Azure leverages the Azure Container Registry (ACR) for storing both the back end and front end Docker images. Azure Container Instances (ACI) then hosts and runs these containerized services, ensuring a scalable and flexible environment for the entire application.
+
+### 6. CI/CD Pipeline
+
+A Continuous Integration/Continuous Deployment (CI/CD) pipeline built with GitHub Actions automates the workflow. Key steps include:
+
+1. Checking out the repository code  
+2. Installing and configuring the Azure CLI  
+3. Logging in to Azure and the ACR  
+4. Building and pushing the back end and front end images  
+5. Generating the `container-group.json` file  
+6. Deploying the application to Azure Container Instances (ACI)
+
+This pipeline ensures reliability, reproducibility, and efficient delivery of updates throughout the machine learning lifecycle.
 
 ## Resources
 
